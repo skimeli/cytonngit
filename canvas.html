@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>canvas example</title>
+</head>
+<body>
+<p> Canvas is an element that is incorporated with javascript to enable graphics drawing
+    possible on html5.its use is as shown below.
+</p>
+<canvas id="hicanvas" width="200" height="100" style="border:1px solid #35a6a8;">
+    feeling masked out? sorry.</canvas>
+
+<script>
+    var c = document.getElementById("hicanvas");
+    var ctx = c.getContext("2d");
+    ctx.font = "22px Apple Chancery";
+    ctx.strokeText("have a good day",10,50);
+</script>
+
+
+
+</body>
+</html>

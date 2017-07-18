@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>google maps</title>
+</head>
+<body>
+<p> This is an application programming interface that allows one to display location
+    on the web page or the website. using the following script, you can be able to display your location.
+</p>
+
+<h1>Westlands google map</h1>
+<!-- <div id="westlandsmap" style="width:100%;height:400px;"></div> -->
+<div id="westlandsmap" style="width:100%;height:400px;"></div>
+
+<script>
+
+            function initMap() {
+            var myLatLng = {lat: -1.268665592, lng: 36.805996776};
+
+            var map = new google.maps.Map(document.getElementById('westlandsmap'), {
+                zoom: 12,
+                center: myLatLng
+            });
+
+            var marker = new google.maps.Marker({
+                position: myLatLng,
+                map: map,
+                title: 'Westlands google map!'
+            });
+        }
+</script>
+
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBAKx0HHi9MjMSuccVOR5PMDv47DMSSJFc&callback=initMap">
+</script>
+</body>
+
+</html>

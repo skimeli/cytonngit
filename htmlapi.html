@@ -1,0 +1,129 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <style>
+        #div1 {
+            width: 350px;
+            height: 70px;
+            padding: 10px;
+            border: 1px solid #aaaaaa;
+        }
+    </style>
+    <script>
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+
+        function drag(ev) {
+            ev.dataTransfer.setData("text", ev.target.id);
+        }
+
+        function drop(ev) {
+            ev.preventDefault();
+            var data = ev.dataTransfer.getData("text");
+            ev.target.appendChild(document.getElementById(data));
+        }
+    </script>
+</head>
+<body>
+<p><b>Drag and drop API</b></p>
+<p>drag the image to the box above:</p>
+
+<div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+<br>
+<img id="drag1" src="1.jpeg" draggable="true" ondragstart="drag(event)" width="336" height="69">
+
+
+<p><b>Geolocation</b></p>
+<p>you'll get your location in a sec</p>
+
+<button onclick="getLocation()">Click here</button>
+
+<p id="location1"></p>
+
+<script>
+    var x = document.getElementById("location1");
+
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition, showError);
+        } else {
+            x.innerHTML = "Geolocation error.";
+        }
+    }
+
+    function showPosition(position) {
+        x.innerHTML = "Latitude: " + position.coords.latitude +
+            "<br>Longitude: " + position.coords.longitude;
+    }
+
+    function showError(error) {
+        switch(error.code) {
+            case error.PERMISSION_DENIED:
+                x.innerHTML = "User denied the request for Geolocation."
+                break;
+            case error.POSITION_UNAVAILABLE:
+                x.innerHTML = "Location information is unavailable."
+                break;
+            case error.TIMEOUT:
+                x.innerHTML = "The request to get user location timed out."
+                break;
+            case error.UNKNOWN_ERROR:
+                x.innerHTML = "An unknown error occurred."
+                break;
+        }
+    }
+</script>
+
+<p><b>Web workers</b></p>
+<p>Count numbers: <output id="wwork"></output></p>
+<button onclick="startWorker()">work start</button>
+<button onclick="stopWorker()">end</button>
+
+<script>
+    var m;
+
+    function startWorker() {
+
+        if(typeof(Worker) !== "undefined") {
+
+            if(typeof(m) == "undefined") {
+                m = new Worker("main_worker.js");
+            }
+            m.onmessage = function(event) {
+
+                document.getElementById("wwork").innerHTML = event.data;
+
+            };
+
+        } else {
+
+            document.getElementById("wwork").innerHTML = "sorry! web worker not found";
+
+        }
+    }
+
+    function stopWorker() {
+        m.terminate();
+        m = undefined;
+    }
+</script>
+
+<p><b> Server Sent Events</b></p>
+
+<div id="message"></div>
+
+<script>
+    if(typeof(EventSource) !== "undefined") {
+        var source = new EventSource("test.php");
+        source.onmessage = function(event) {
+            document.getElementById("message").innerHTML += event.data + "<br>";
+        };
+    } else {
+        document.getElementById("message").innerHTML = "sse not found!";
+    }
+</script>
+
+
+</body>
+</html>
